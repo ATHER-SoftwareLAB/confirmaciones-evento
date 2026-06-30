@@ -83,12 +83,15 @@ export default function RSVP() {
             <div style={S.dateBlock}>
               <div style={S.dateText}>{formatFechaSolo(fechaEvento)}</div>
               {countdownEvento && !countdownEvento.pasado && (
-                <div style={S.countdownRow}>
-                  <CountdownUnit value={countdownEvento.dias} label="días" />
-                  <CountdownUnit value={countdownEvento.horas} label="hrs" />
-                  <CountdownUnit value={countdownEvento.min} label="min" />
-                  <CountdownUnit value={countdownEvento.seg} label="seg" />
-                </div>
+                <>
+                  <div style={S.countdownLabel2}>El evento comienza en:</div>
+                  <div style={S.countdownRow}>
+                    <CountdownUnit value={countdownEvento.dias} label="días" />
+                    <CountdownUnit value={countdownEvento.horas} label="hrs" />
+                    <CountdownUnit value={countdownEvento.min} label="min" />
+                    <CountdownUnit value={countdownEvento.seg} label="seg" />
+                  </div>
+                </>
               )}
               {evento?.evento_ciudad && <div style={S.cityText}>{evento.evento_ciudad}</div>}
             </div>
@@ -236,9 +239,10 @@ const S = {
   imageWrap: {
     borderRadius: 20, overflow: 'hidden', position: 'relative', zIndex: 1,
     boxShadow: '0 12px 40px rgba(0,0,0,0.5)', background: '#1a1a2e',
+    width: '100%', aspectRatio: '1 / 1',
   },
   imageSpacer: { height: 24 },
-  image: { width: '100%', display: 'block', objectFit: 'contain' },
+  image: { width: '100%', height: '100%', display: 'block', objectFit: 'cover' },
   card: {
     background: '#1a1a2e', border: '1px solid #2d2d4e', borderRadius: 20,
     padding: '48px 28px 32px', position: 'relative', zIndex: 2,
@@ -249,6 +253,7 @@ const S = {
   dateBlock: { textAlign: 'center', marginBottom: 24 },
   dateText: { fontSize: 14, color: '#c9a96e', textTransform: 'capitalize', marginBottom: 12 },
   countdownRow: { display: 'flex', justifyContent: 'center', gap: 10, marginBottom: 10 },
+  countdownLabel2: { fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#9990b8', marginBottom: 10, marginTop: 4 },
   cityText: { fontSize: 12, color: '#9990b8', letterSpacing: '0.03em' },
   locationsCol: { display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 },
   locationBlock: { display: 'flex', gap: 12, alignItems: 'flex-start', background: '#22223b', borderRadius: 12, padding: 16 },
