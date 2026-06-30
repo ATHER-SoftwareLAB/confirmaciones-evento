@@ -61,34 +61,15 @@ export default function RSVP() {
           <div style={S.imageWrap}>
             <img src={evento.evento_imagen_url} alt="Invitación" style={S.image} />
           </div>
-          </div>
         )}
 
         <div style={S.card}>
-          <div style={S.eyebrow}>Estás invitado a</div>
+          <div style={S.eyebrow}>Estás invitado</div>
           <h1 style={S.title}>{evento?.evento_nombre || 'Nuestro Evento'}</h1>
 
           {fechaEvento && (
             <div style={S.dateBlock}>
               <div style={S.dateText}>{formatFechaSolo(fechaEvento)}</div>
-            </div>
-          )}
-
-            {evento?.misa_habilitada && (
-                <div style={S.locationBlock}>
-                  <div style={S.locationIcon}>✛</div>
-                  <div style={{ flex: 1 }}>
-                    <div style={S.locationLabel}>Celebración religiosa</div>
-                    {evento.misa_maps_url ? (
-                      <a href={evento.misa_maps_url} target="_blank" rel="noreferrer" style={S.mapsBtn}>
-                        Celebración religiosa{evento.misa_hora ? ` — ${formatHora(evento.misa_hora)}` : ''}
-                      </a>
-                    ) : (
-                      <div style={S.locationName}>{evento.misa_hora ? formatHora(evento.misa_hora) : ''}</div>
-                    )}
-                  </div>
-                </div>
-              )}
             </div>
           )}
 
@@ -108,6 +89,24 @@ export default function RSVP() {
                   </div>
                 </div>
               )}
+
+              {evento?.misa_habilitada && (
+                <div style={S.locationBlock}>
+                  <div style={S.locationIcon}>✛</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={S.locationLabel}>Celebración religiosa</div>
+                    {evento.misa_maps_url ? (
+                      <a href={evento.misa_maps_url} target="_blank" rel="noreferrer" style={S.mapsBtn}>
+                        Celebración religiosa{evento.misa_hora ? ` — ${formatHora(evento.misa_hora)}` : ''}
+                      </a>
+                    ) : (
+                      <div style={S.locationName}>{evento.misa_hora ? formatHora(evento.misa_hora) : ''}</div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
           <div style={S.divider} />
 
@@ -268,3 +267,4 @@ const S = {
   footer: { textAlign: 'center', fontSize: 12, color: '#6b6485', marginTop: 24, fontStyle: 'italic' },
   credits: { textAlign: 'center', fontSize: 10, color: '#4a4566', marginTop: 16, letterSpacing: '0.02em' },
 }
+
