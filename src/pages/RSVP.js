@@ -48,8 +48,17 @@ export default function RSVP() {
     )
   }
 
-  const horaInicio = evento?.misa_habilitada && evento?.misa_hora ? evento.misa_hora : (evento?.evento_hora || '00:00')
-  const fechaEvento = evento?.evento_fecha ? new Date(`${evento.evento_fecha}T${horaInicio}:00`) : null
+  // Tomar solo la parte YYYY-MM-DD sin importar formato que devuelva Supabase
+  const fechaStr = evento?.evento_fecha ? String(evento.evento_fecha).slice(0, 10) : null
+  // Hora del primer evento: misa si existe, sino recepción, sino medianoche
+  const horaStr = (evento?.misa_habilitada && evento?.misa_hora) ? evento.misa_hora : (evento?.evento_hora || '00:00')
+  // Construir fecha objetivo usando partes individuales para evitar bugs de timezone
+  let fechaEvento = null
+  if (fechaStr && /^\d{4}-\d{2}-\d{2}$/.test(fechaStr)) {
+    const [y, mo, d] = fechaStr.split('-').map(Number)
+    const [h, mi] = horaStr.split(':').map(Number)
+    fechaEvento = new Date(y, mo - 1, d, h, mi, 0)
+  }
   const countdownEvento = fechaEvento ? getCountdown(fechaEvento, now) : null
   const fechaLimite = evento?.evento_fecha_limite ? new Date(evento.evento_fecha_limite) : null
   const countdownLimite = fechaLimite ? getCountdown(fechaLimite, now) : null
@@ -64,6 +73,7 @@ export default function RSVP() {
             <img src={evento.evento_imagen_url} alt="Invitación" style={S.image} />
           </div>
         )}
+        {evento?.evento_imagen_url && <div style={S.imageSpacer} />}
 
         <div style={S.card}>
           <div style={S.eyebrow}>Estás invitado</div>
@@ -224,9 +234,10 @@ const S = {
   errorIcon: { fontSize: 32, color: '#c9a96e', marginBottom: 16 },
   errorText: { fontSize: 14, lineHeight: 1.6 },
   imageWrap: {
-    borderRadius: 20, overflow: 'hidden', marginBottom: -40, position: 'relative', zIndex: 1,
+    borderRadius: 20, overflow: 'hidden', position: 'relative', zIndex: 1,
     boxShadow: '0 12px 40px rgba(0,0,0,0.5)', background: '#1a1a2e',
   },
+  imageSpacer: { height: 24 },
   image: { width: '100%', display: 'block', objectFit: 'contain' },
   card: {
     background: '#1a1a2e', border: '1px solid #2d2d4e', borderRadius: 20,
