@@ -7,6 +7,7 @@ import Invitados from './pages/Invitados'
 import Mensajes from './pages/Mensajes'
 import Envios from './pages/Envios'
 import EventoConfig from './pages/EventoConfig'
+import Prueba from './pages/Prueba'
 import RSVP from './pages/RSVP'
 import Nav from './components/Nav'
 import { Toaster } from 'react-hot-toast'
@@ -43,6 +44,7 @@ function Panel() {
         {page === 'mensajes' && <Mensajes />}
         {page === 'envios' && <Envios />}
         {page === 'evento' && <EventoConfig />}
+        {page === 'prueba' && <Prueba />}
       </main>
     </div>
   )
