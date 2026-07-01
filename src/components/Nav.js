@@ -6,6 +6,7 @@ const links = [
   { id: 'invitados', label: 'Invitados' },
   { id: 'mensajes', label: 'Mensajes' },
   { id: 'envios', label: 'Envíos' },
+  { id: 'prueba', label: '🔥 Prueba' },
   { id: 'evento', label: 'Evento' },
 ]
 
